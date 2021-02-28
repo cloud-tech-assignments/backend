@@ -1,0 +1,143 @@
+const dummyCustomers = [{
+  "first_name": "Obie",
+  "last_name": "Twinning",
+  "date_of_birth": "5/14/2020",
+  "city": "Wadung",
+  "personal_number": "645-901-9234",
+  "account_number": "821-900-2496"
+}, {
+  "first_name": "Kalie",
+  "last_name": "Parcall",
+  "date_of_birth": "9/11/2020",
+  "city": "Koudougou",
+  "personal_number": "175-582-9387",
+  "account_number": "334-749-8033"
+}, {
+  "first_name": "Adria",
+  "last_name": "Mapples",
+  "date_of_birth": "3/4/2020",
+  "city": "Villeneuve-d'Ascq",
+  "personal_number": "239-975-4659",
+  "account_number": "738-409-4632"
+}, {
+  "first_name": "Doyle",
+  "last_name": "Drowsfield",
+  "date_of_birth": "1/1/2021",
+  "city": "Huaquirca",
+  "personal_number": "588-945-0899",
+  "account_number": "188-283-3649"
+}, {
+  "first_name": "Ailsun",
+  "last_name": "Sleeman",
+  "date_of_birth": "1/31/2021",
+  "city": "Xinjie",
+  "personal_number": "379-339-4892",
+  "account_number": "561-756-8718"
+}, {
+  "first_name": "Smith",
+  "last_name": "January 1st",
+  "date_of_birth": "4/4/2020",
+  "city": "Kalamangog",
+  "personal_number": "795-259-2685",
+  "account_number": "297-155-4738"
+}, {
+  "first_name": "Butch",
+  "last_name": "Terlinden",
+  "date_of_birth": "4/27/2020",
+  "city": "Hejiang",
+  "personal_number": "932-791-8154",
+  "account_number": "654-518-4500"
+}, {
+  "first_name": "Lisabeth",
+  "last_name": "Walding",
+  "date_of_birth": "10/27/2020",
+  "city": "Brandýs nad Labem-Stará Boleslav",
+  "personal_number": "827-343-4874",
+  "account_number": "649-132-0294"
+}, {
+  "first_name": "Catharine",
+  "last_name": "Graver",
+  "date_of_birth": "8/30/2020",
+  "city": "Vakhsh",
+  "personal_number": "634-184-9142",
+  "account_number": "442-330-2330"
+}, {
+  "first_name": "Otes",
+  "last_name": "Brecknall",
+  "date_of_birth": "10/3/2020",
+  "city": "Zhinvali",
+  "personal_number": "246-569-3814",
+  "account_number": "523-532-3750"
+}, {
+  "first_name": "Tabbie",
+  "last_name": "Upfold",
+  "date_of_birth": "10/27/2020",
+  "city": "Yinying",
+  "personal_number": "643-935-2693",
+  "account_number": "158-711-5814"
+}, {
+  "first_name": "Lamar",
+  "last_name": "Bett",
+  "date_of_birth": "1/17/2021",
+  "city": "Varberg",
+  "personal_number": "920-539-4838",
+  "account_number": "832-744-5489"
+}, {
+  "first_name": "Godfrey",
+  "last_name": "Smee",
+  "date_of_birth": "10/29/2020",
+  "city": "Gowurdak",
+  "personal_number": "452-642-7582",
+  "account_number": "134-778-6338"
+}, {
+  "first_name": "Mychal",
+  "last_name": "Nesbit",
+  "date_of_birth": "7/18/2020",
+  "city": "Xiuying",
+  "personal_number": "372-543-4828",
+  "account_number": "821-203-6271"
+}, {
+  "first_name": "Vanni",
+  "last_name": "Soden",
+  "date_of_birth": "9/6/2020",
+  "city": "Zhenhai",
+  "personal_number": "419-115-7648",
+  "account_number": "828-511-5475"
+}, {
+  "first_name": "Lyndsay",
+  "last_name": "Folbige",
+  "date_of_birth": "4/29/2020",
+  "city": "Pamotan",
+  "personal_number": "813-962-2070",
+  "account_number": "954-467-3055"
+}, {
+  "first_name": "Gloria",
+  "last_name": "Vagg",
+  "date_of_birth": "12/27/2020",
+  "city": "Miranda",
+  "personal_number": "149-631-0823",
+  "account_number": "726-408-6297"
+}, {
+  "first_name": "Eartha",
+  "last_name": "von Nassau",
+  "date_of_birth": "2/12/2021",
+  "city": "Rozsypne",
+  "personal_number": "780-467-2621",
+  "account_number": "206-460-9302"
+}, {
+  "first_name": "Dell",
+  "last_name": "Philbin",
+  "date_of_birth": "7/17/2020",
+  "city": "Austin",
+  "personal_number": "512-655-8717",
+  "account_number": "174-441-7505"
+}, {
+  "first_name": "Brucie",
+  "last_name": "Moy",
+  "date_of_birth": "7/25/2020",
+  "city": "Janagdong",
+  "personal_number": "677-681-5747",
+  "account_number": "916-896-0145"
+}]
+
+module.exports = dummyCustomers
