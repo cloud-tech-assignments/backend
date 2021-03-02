@@ -141,6 +141,7 @@ router.put("/:personalNumber", (req, res) => {
   const { personalNumber } = req.params;
 
   Customer.findOneAndUpdate({ personal_number: personalNumber }, req.body, {
+    new: true,
     useFindAndModify: false
   })
     .then(updatedCustomer => {
@@ -166,7 +167,6 @@ router.put("/:personalNumber", (req, res) => {
           city,
           account_number
         };
-
         res.status(200).json({ updatedCustomer: payload });
       }
     });
