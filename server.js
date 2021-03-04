@@ -4,7 +4,10 @@ const mongoose = require('mongoose');
 
 const app = express();
 //load env vars
-require('dotenv').config();
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
+const dotenv = process.env.DB_URI
 
 // route handlers
 customerRouter = require("./routes/customer.routes");
@@ -12,7 +15,7 @@ customerRouter = require("./routes/customer.routes");
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect(process.env.DB_URI,
+mongoose.connect(dotenv,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true
