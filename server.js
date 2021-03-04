@@ -9,11 +9,7 @@ require('dotenv').config();
 // route handlers
 customerRouter = require("./routes/customer.routes");
 
-var corsOptions = {
-  origin: ["http://localhost:5000", "http://localhost:3000"]
-};
-
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json());
 
 mongoose.connect(process.env.DB_URI,
@@ -27,7 +23,7 @@ mongoose.connect(process.env.DB_URI,
   //set port, listen for requests
   const PORT = process.env.PORT || 5000;
   app.listen(PORT, () => {
-    console.log(`------- Server started at port ${ PORT } -------`);
+    console.log(`------- Server started at port ${PORT} -------`);
   });
 }).catch(err => {
   console.log('Could not connect to the database!', err);

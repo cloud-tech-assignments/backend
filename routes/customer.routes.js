@@ -28,7 +28,7 @@ router.post("/", (req, res) => {
     .then(data => {
 
       if (data) {
-        res.status(400).send({ message: "Customer already exists" });
+        res.status(400).json({ message: "Customer already exists" });
       } else {
         customer.save(customer)
           .then(newCustomer => {
@@ -54,7 +54,7 @@ router.post("/", (req, res) => {
             res.status(200).send({ newCustomer: payload });
           })
           .catch(err => {
-            res.status(500).send({
+            res.status(500).json({
               message:
                 err.message || "Some error occurred while saving customer"
             });
