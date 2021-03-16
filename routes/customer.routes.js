@@ -4,7 +4,7 @@ let router = require('express').Router();
 //DB connection
 const Customer = require('../models/customer.model');
 const EXCLUDE_COLUMNS = { createdAt: 0, updatedAt: 0, __v: 0, _id: 0 };
-const t4 = Date.now();
+const t4 =
 
 //Create a new customer
 router.post("/", (req, res) => {
@@ -52,7 +52,7 @@ router.post("/", (req, res) => {
               account_number,
             };
 
-            res.status(200).send({ newCustomer: payload, t4});
+            res.status(200).send({ newCustomer: payload, t4: Date.now()});
           })
           .catch(err => {
             res.status(500).json({
@@ -85,7 +85,7 @@ router.get("/:personalNumber", (req, res) => {
     res.status(422).json({ message: "Please send a number as the personal number" });
   } else {
     Customer.findOne({ personal_number: personalNumber }, EXCLUDE_COLUMNS)
-      .then(customer => res.status(200).json({ customer, t4}))
+      .then(customer => res.status(200).json({ customer, t4:Date.now()}))
       .catch(err => {
         console.log(err);
         res.status(500).json({ message: "Server ran into an error processing the request" });
@@ -123,7 +123,7 @@ router.delete("/:personalNumber", (req, res) => {
         account_number,
       };
 
-      res.status(200).json({ deletedCustomer: payload, t4});
+      res.status(200).json({ deletedCustomer: payload, t4:Date.now()});
     })
     .catch(err => {
       console.log(err);
@@ -168,7 +168,7 @@ router.put("/:personalNumber", (req, res) => {
           city,
           account_number
         };
-        res.status(200).json({ updatedCustomer: payload, t4 });
+        res.status(200).json({ updatedCustomer: payload, t4:Date.now() });
       }
     });
 });
