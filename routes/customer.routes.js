@@ -4,7 +4,6 @@ let router = require('express').Router();
 //DB connection
 const Customer = require('../models/customer.model');
 const EXCLUDE_COLUMNS = { createdAt: 0, updatedAt: 0, __v: 0, _id: 0 };
-const t4 =
 
 //Create a new customer
 router.post("/", (req, res) => {
