@@ -2,18 +2,19 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 
-const app = express();
+const server = express();
 //load env vars
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
-const dotenv = process.env.DB_URI
+const dotenv = process.env.DB_URI;
+
 
 // route handlers
 customerRouter = require("./routes/customer.routes");
 
-app.use(cors());
-app.use(express.json());
+server.use(cors());
+server.use(express.json());
 
 mongoose.connect(dotenv,
   {
@@ -22,10 +23,9 @@ mongoose.connect(dotenv,
   }
 ).then(() => {
   console.log('------- Connection with DB established -------');
-
   //set port, listen for requests
   const PORT = process.env.PORT || 5000;
-  app.listen(PORT, () => {
+    server.listen(PORT, () => {
     console.log(`------- Server started at port ${PORT} -------`);
   });
 }).catch(err => {
@@ -33,12 +33,14 @@ mongoose.connect(dotenv,
   process.exit();
 });
 
+
+
 // declare route handlers AFTER all middleware used in the application
 // custom route handle to handle requests to /api/customer
-app.use('/api/customers', customerRouter); // -> localhost:5000/api/customer route
+server.use('/api/customers', customerRouter); // -> localhost:5000/api/customer route
 
 
-app.get("/", (req, res) => {
+server.get("/", (req, res) => {
   res.json({ message: "Welcome to my application." });
 });
 
