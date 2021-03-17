@@ -1,4 +1,4 @@
-// create a express router
+// create a express router makes it work
 let router = require('express').Router();
 
 //DB connection
