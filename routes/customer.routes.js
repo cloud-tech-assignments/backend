@@ -4,10 +4,10 @@ let router = require('express').Router();
 //DB connection
 const Customer = require('../models/customer.model');
 const EXCLUDE_COLUMNS = { createdAt: 0, updatedAt: 0, __v: 0, _id: 0 };
-const t4 = Date.now();
 
 //Create a new customer
-router.post("/", (req, res) => {
+router.post('/', (req, res) => {
+  let t2 = Date.now();
   //validate request
   const personal_number = req.body.personal_number;
   console.log(personal_number);
@@ -24,95 +24,106 @@ router.post("/", (req, res) => {
     account_number: req.body.account_number,
   });
 
-  console.log("CUSTOMER: ", customer);
-  Customer.exists({ personal_number })
-    .then(data => {
+  console.log('CUSTOMER: ', customer);
+  Customer.exists({ personal_number }).then((data) => {
+    if (data) {
+      res.status(400).json({ message: 'Customer already exists' });
+    } else {
+      customer
+        .save(customer)
+        .then((newCustomer) => {
+          const {
+            personal_number,
+            first_name,
+            last_name,
+            date_of_birth,
+            city,
+            account_number,
+          } = newCustomer;
 
-      if (data) {
-        res.status(400).json({ message: "Customer already exists" });
-      } else {
-        customer.save(customer)
-          .then(newCustomer => {
-            const {
-              personal_number,
-              first_name,
-              last_name,
-              date_of_birth,
-              city,
-              account_number,
-            } = newCustomer;
-
-
-            const payload = {
-              personal_number,
-              first_name,
-              last_name,
-              date_of_birth,
-              city,
-              account_number,
-            };
-
-            res.status(200).send({ newCustomer: payload, t4});
-          })
-          .catch(err => {
-            res.status(500).json({
-              message:
-                err.message || "Some error occurred while saving customer"
-            });
+          const payload = {
+            personal_number,
+            first_name,
+            last_name,
+            date_of_birth,
+            city,
+            account_number,
+          };
+          console.log(newCustomer);
+          res.status(200).send({ newCustomer: payload, t4: Date.now(), t2 });
+        })
+        .catch((err) => {
+          res.status(500).json({
+            message: err.message || 'Some error occurred while saving customer',
           });
-      }
-    });
+        });
+    }
+  });
 });
 
 //Retrieve all customers
-router.get("/all", (req, res) => {
+router.get('/all', (req, res) => {
+  let t2 = Date.now();
   Customer.find({}, EXCLUDE_COLUMNS)
-    .then(customers => {
-      res.status(200).send({ customers, t4 });
+    .then((customers) => {
+      console.log(customers);
+      res.status(200).send({ customers, t4: Date.now(), t2 });
     })
-    .catch(err => {
+    .catch((err) => {
       console.log(err);
-      res.status(500).json({ message: "Server ran into an error processing the request" });
+      res
+        .status(500)
+        .json({ message: 'Server ran into an error processing the request' });
     });
 });
 
 // Retrieve a single customer with personal number
-router.get("/:personalNumber", (req, res) => {
+router.get('/:personalNumber', (req, res) => {
+  let t2 = Date.now();
   const { personalNumber } = req.params;
   const convertedNumber = Number(personalNumber);
 
   if (typeof convertedNumber !== 'number') {
-    res.status(422).json({ message: "Please send a number as the personal number" });
+    res
+      .status(422)
+      .json({ message: 'Please send a number as the personal number' });
   } else {
     Customer.findOne({ personal_number: personalNumber }, EXCLUDE_COLUMNS)
-      .then(customer => res.status(200).json({ customer, t4}))
-      .catch(err => {
+      .then((customer) => {
+        res.status(200).json({ customer, t4: Date.now(), t2 });
+        console.log(customer);
+      })
+      .catch((err) => {
         console.log(err);
-        res.status(500).json({ message: "Server ran into an error processing the request" });
+        res
+          .status(500)
+          .json({ message: 'Server ran into an error processing the request' });
       });
   }
 });
 
 //Delete a costumer with personal number
-router.delete("/:personalNumber", (req, res) => {
+router.delete('/:personalNumber', (req, res) => {
+  let t2 = Date.now();
   const { personalNumber } = req.params;
   const convertedNumber = Number(personalNumber);
 
   if (typeof convertedNumber !== 'number') {
-    res.status(422).json({ message: "Please send a number as the personal number" });
+    res
+      .status(422)
+      .json({ message: 'Please send a number as the personal number' });
   }
 
   Customer.findOneAndDelete({ personal_number: personalNumber })
-    .then(deletedCustomer => {
+    .then((deletedCustomer) => {
       const {
         personal_number,
         first_name,
         last_name,
         date_of_birth,
         city,
-        account_number
+        account_number,
       } = deletedCustomer;
-
 
       const payload = {
         personal_number,
@@ -122,20 +133,23 @@ router.delete("/:personalNumber", (req, res) => {
         city,
         account_number,
       };
-
-      res.status(200).json({ deletedCustomer: payload, t4});
+      console.log(deletedCustomer);
+      res.status(200).json({ deletedCustomer: payload, t4: Date.now(), t2 });
     })
-    .catch(err => {
+    .catch((err) => {
       console.log(err);
-      res.status(500).json({ message: "Server ran into an issue processing the request" });
+      res
+        .status(500)
+        .json({ message: 'Server ran into an issue processing the request' });
     });
 });
 
 //Update a customer with personal number
-router.put("/:personalNumber", (req, res) => {
+router.put('/:personalNumber', (req, res) => {
+  let t2 = Date.now();
   if (!req.body) {
     return res.status(400).send({
-      message: "Data to update cannot be empty!"
+      message: 'Data to update cannot be empty!',
     });
   }
 
@@ -143,34 +157,34 @@ router.put("/:personalNumber", (req, res) => {
 
   Customer.findOneAndUpdate({ personal_number: personalNumber }, req.body, {
     new: true,
-    useFindAndModify: false
-  })
-    .then(updatedCustomer => {
-      if (!updatedCustomer) {
-        res.status(400).send({
-          message: `Cannot update customer with personal number ${ personalNumber }. Maybe the customer was not found`
-        });
-      } else {
-        const {
-          personal_number,
-          first_name,
-          last_name,
-          date_of_birth,
-          city,
-          account_number
-        } = updatedCustomer;
+    useFindAndModify: false,
+  }).then((updatedCustomer) => {
+    if (!updatedCustomer) {
+      res.status(400).send({
+        message: `Cannot update customer with personal number ${personalNumber}. Maybe the customer was not found`,
+      });
+    } else {
+      const {
+        personal_number,
+        first_name,
+        last_name,
+        date_of_birth,
+        city,
+        account_number,
+      } = updatedCustomer;
 
-        const payload = {
-          personal_number,
-          first_name,
-          last_name,
-          date_of_birth,
-          city,
-          account_number
-        };
-        res.status(200).json({ updatedCustomer: payload, t4 });
-      }
-    });
+      const payload = {
+        personal_number,
+        first_name,
+        last_name,
+        date_of_birth,
+        city,
+        account_number,
+      };
+      console.log(updatedCustomer);
+      res.status(200).json({ updatedCustomer: payload, t4: Date.now(), t2 });
+    }
+  });
 });
 
 //Export router to be used in the server file
