@@ -24,7 +24,6 @@ router.post('/', (req, res) => {
     account_number: req.body.account_number,
   });
 
-  console.log('CUSTOMER: ', customer);
   Customer.exists({ personal_number }).then((data) => {
     if (data) {
       res.status(400).json({ message: 'Customer already exists' });
