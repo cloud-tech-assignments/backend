@@ -10,10 +10,12 @@ router.post('/', (req, res) => {
   let t2 = Date.now();
   //validate request
   const personal_number = req.body.personal_number;
-  console.log(personal_number);
   if (!personal_number) {
     res.status(400).send({ message: 'Personal number can not be empty!' });
   }
+  const max = 99999999999
+  const min = 10000000000
+  const randomNumber = Math.floor(Math.random() * (max-min) + min)
 
   const customer = new Customer({
     personal_number: req.body.personal_number,
@@ -21,7 +23,7 @@ router.post('/', (req, res) => {
     last_name: req.body.last_name,
     date_of_birth: req.body.date_of_birth,
     city: req.body.city,
-    account_number: req.body.account_number,
+    account_number: randomNumber,
   });
 
   Customer.exists({ personal_number }).then((data) => {
@@ -48,7 +50,6 @@ router.post('/', (req, res) => {
             city,
             account_number,
           };
-          console.log(newCustomer);
           res.status(200).send({ newCustomer: payload, t4: Date.now(), t2 });
         })
         .catch((err) => {
